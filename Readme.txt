@@ -7,7 +7,7 @@
 
 
 First Edition by PauloAstro at 14 August 2022. 
-Last reviewed at 27 Aug 2022.
+Last reviewed at 29 Aug 2022.
 
 
 0) Introduction.
@@ -69,15 +69,16 @@ This QB64 language implementation on NotePad++ (v.8.4.4, 64bits) Portable editio
 3) Version History  -----------------------------------
 			
 
-	Rev.0.2 - 20 Aug 2022.
+	Rev.0.2 - 27 Aug 2022.
 		- Added Macro to insert Line Coments (only works when selecting the entire line or more). 
 		- Added Macro to remove Line Coments (only works when selecting the entire line or more). 
 		  (Macros are saved at shortcuts.xml file)		
-		- Updated QB64FList.xml (see file for updates history)
-		- Updated UDL to qb64_UDL_v0.003.xml
+		- Updated QB64FList.xml (see file for updates history)		
 		- Added new qb64_UDL_DarkMode_v0.003.xml for DarkMode color Preferences.
+		- added config.xml - file with more NP++ colours configuration for DarkMode use. 
 		
-	Rev.0.1 - 26 Aug 2022.
+		
+	Rev.0.1 - 20 Aug 2022.
 		- - Updated UDL to qb64_UDL_v0.002.xml
 	
 	Rev.0.0 - 15 Aug 2022.
