@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ==========================================================================\
+|
+|   To learn how to make your own language parser, please check the following
+|   link:
+|       https://npp-user-manual.org/docs/function-list/
+|
+\=========================================================================== -->
+<NotepadPlus>
+	<functionList>
+	<associationMap>
+			<association id=        "qb64_syntax"        userDefinedLangName="QB64"        />
+			<association id=        "qb64_syntax"        ext=".bas"                               /> 
+			<association id=        "qb64_syntax"        ext=".bi"                                />
+			<association id=        "qb64_syntax"        ext=".bm"                                />
+		</associationMap>
+		
+<!--
+ ==============================================================================
+|	edited by PauloAstro 2022-AUG-13.
+|   Based on Fortram77.xml file coding convention for Functions extractions 
+|	and on Python.xml for Class/Functions RegEx extraction.
+|
+|
+|
+|	Revision N.º 02 - 24AUG2022:
+|			- Added support for TYPE definition on FunctionList View Tab for the form:
+|				TYPE name
+|					varName AS varType
+|					...
+|				END TYPE
+|			- added: the SUB, FUCTION and TYPE identifier appears on the functionLis name. 
+|
+|	Revision N.º 01 - 17AUG2022: 
+|			- Added the underscore char (_) to Function name search Expr on line: "# valid character combination for identifiers".
+|
+\================================================================================== 
+-->
+		<parser
+			displayName="QB64"
+			id         ="qb64_syntax"
+			commentExpr="(?m-s:'.*?$)"                         
+						
+		> 
+		<classRange
+				mainExpr    ="^\s*\Ktype\s+.*?(?=end\s*type)"
+			>
+				<className>
+					<nameExpr expr="type\s*\w*" />
+				</className>
+				
+				<function
+					mainExpr="\w*\s*as.*?(?='|\n)"
+					
+				
+				> 
+					<functionName>
+						<funcNameExpr expr=".*" />
+					</functionName>
+					
+					
+				</function>
+			</classRange>
+			
+			
+		<!-- mainExpr="\w+\s*as.*?(?='|\n)"  -> is working -->
+		
+			<function
+				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
+						(?im-s)                                             # case-insensitive, ^ and $ match at line breaks, dot does not
+						^\h*\K                                                # optional leading whitespace at start-of-line
+						(?:FUNCTION|SUB)\s+
+						                                                  # discard text matched so far
+						[_A-Z]\w{0,62}                                      # valid character combination for identifiers
+						(?:\s*\([^()]*\))?                                  # optional paramater list
+					"
+			>
+				<!-- comment out the following node to display the method with its parameters -->
+				<!--
+				<functionName>
+					<nameExpr expr="\w+" />
+				</functionName>
+				-->
+			</function>
+		</parser>
+	</functionList>
+</NotepadPlus>
