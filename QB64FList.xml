@@ -15,25 +15,63 @@
 			<association id=        "qb64_syntax"        ext=".bm"                                />
 		</associationMap>
 		
-<!-- ==========================================================================\
+<!--
+ ==============================================================================
 |	edited by PauloAstro 2022-AUG-13.
-|   Based on Fortram77.xml file coding convention.
+|   Based on Fortram77.xml file coding convention for Functions extractions 
+|	and on Python.xml for Class/Functions RegEx extraction.
 |
-\=========================================================================== -->
+|
+|
+|	Revision N.º 02 - 24AUG2022:
+|			- Added support for TYPE definition on FunctionList View Tab for the form:
+|				TYPE name
+|					varName AS varType
+|					...
+|				END TYPE
+|			- added: the SUB, FUCTION and TYPE identifier appears on the functionLis name. 
+|
+|	Revision N.º 01 - 17AUG2022: 
+|			- Added the underscore char (_) to Function name search Expr on line: "# valid character combination for identifiers".
+|
+\================================================================================== 
+-->
 		<parser
 			displayName="QB64"
 			id         ="qb64_syntax"
-			commentExpr="(?x)                                               # free-spacing (see `RegEx - Pattern Modifiers`)
-							(?m-s:(?:!|^[Cc*].*$)                           # Single Line Comment 1..3
-						"
-		>
+			commentExpr="(?m-s:'.*?$)"                         
+						
+		> 
+		<classRange
+				mainExpr    ="^\s*\Ktype\s+.*?(?=end\s*type)"
+			>
+				<className>
+					<nameExpr expr="type\s*\w*" />
+				</className>
+				
+				<function
+					mainExpr="\w*\s*as.*?(?='|\n)"
+					
+				
+				> 
+					<functionName>
+						<funcNameExpr expr=".*" />
+					</functionName>
+					
+					
+				</function>
+			</classRange>
+			
+			
+		<!-- mainExpr="\w+\s*as.*?(?='|\n)"  -> is working -->
+		
 			<function
 				mainExpr="(?x)                                              # free-spacing (see `RegEx - Pattern Modifiers`)
 						(?im-s)                                             # case-insensitive, ^ and $ match at line breaks, dot does not
-						^\h*                                                # optional leading whitespace at start-of-line
+						^\h*\K                                                # optional leading whitespace at start-of-line
 						(?:FUNCTION|SUB)\s+
-						\K                                                  # discard text matched so far
-						[A-Z]\w{0,62}                                       # valid character combination for identifiers
+						                                                  # discard text matched so far
+						[_A-Z]\w{0,62}                                      # valid character combination for identifiers
 						(?:\s*\([^()]*\))?                                  # optional paramater list
 					"
 			>
